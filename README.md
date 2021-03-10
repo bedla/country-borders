@@ -7,13 +7,13 @@ from `.json` file/URL.
 
 Requirements
 - Java 11
-- Maven 3
+- Maven 3.6
 
 Steps
 
 1. Clone git repository
 1. Run `mvn clean verify` command to build and test application
-1. Than start application run `mvn spring-boot:run`
+1. To start application run `mvn spring-boot:run`
     1. application will download countries data from the internet (see `application.properties` for URL)
     1. to use local data you can start application with `local` Spring profile with
        command `mvn spring-boot:run -Dspring-boot.run.profiles=local`

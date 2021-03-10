@@ -47,7 +47,7 @@ class CountryDataParserTest {
                         "borders": []
                     }
                 ]
-            """.trimIndent().toByteArray()
+                """.trimIndent().toByteArray()
             )
         )
         assertThat(list)
@@ -67,7 +67,7 @@ class CountryDataParserTest {
                         "borders": ["SK"]
                     }
                 ]
-            """.trimIndent().toByteArray()
+                """.trimIndent().toByteArray()
             )
         )
         assertThat(list)
@@ -102,7 +102,7 @@ class CountryDataParserTest {
                         "borders": []
                     }
                 ]
-            """.trimIndent().toByteArray()
+                """.trimIndent().toByteArray()
             )
         )
         assertThat(list)

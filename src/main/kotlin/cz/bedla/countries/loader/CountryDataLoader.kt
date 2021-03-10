@@ -6,11 +6,11 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.core.io.FileUrlResource
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpStatus
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 import org.springframework.web.client.RestTemplate
 
-@Component
-class CountryDataDownloader(
+@Repository
+class CountryDataLoader(
     private val applicationProperties: ApplicationProperties,
     restTemplateBuilder: RestTemplateBuilder
 ) {
@@ -35,6 +35,6 @@ class CountryDataDownloader(
     }
 
     companion object {
-        private val logger = LoggerFactory.getLogger(CountryDataDownloader::class.java)!!
+        private val logger = LoggerFactory.getLogger(CountryDataLoader::class.java)!!
     }
 }

@@ -1,6 +1,7 @@
 package cz.bedla.countries.controller
 
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -10,9 +11,11 @@ import javax.validation.ConstraintViolationException
 class CustomErrorHandler {
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<ApplicationError> {
-        logger.error("Error", e)
+        logger.error("Internal Server Error", e)
 
-        return ResponseEntity.status(500).body(ApplicationError(e.message ?: "Internal Server Error", null))
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(ApplicationError(e.message ?: "Internal Server Error", null))
     }
 
     @ExceptionHandler(ConstraintViolationException::class)

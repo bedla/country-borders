@@ -28,7 +28,8 @@ class SearchService(
         return searchAlgorithm.findRoute(fromCountry, toCountry, database.graph)
             .also {
                 stopWatch.stop()
-                logger.info("Found route from $fromCountry to $toCountry using algorithm $algorithmId with result $it and time ${stopWatch.totalTimeMillis}ms")
+                logger.info("Found route from $fromCountry to $toCountry using algorithm $algorithmId with " +
+                        "result $it and time ${stopWatch.totalTimeMillis}ms")
             }
     }
 

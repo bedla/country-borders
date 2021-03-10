@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.web.client.RestTemplateBuilder
 import java.net.URI
 
-class CountryDataDownloaderTest {
+class CountryDataLoaderTest {
     private lateinit var properties: ApplicationProperties
 
     @BeforeEach
@@ -40,7 +40,7 @@ class CountryDataDownloaderTest {
                 )
         )
 
-        val resource = CountryDataDownloader(properties, RestTemplateBuilder()).downloadData()
+        val resource = CountryDataLoader(properties, RestTemplateBuilder()).downloadData()
         assertThat(IOUtils.toString(resource.inputStream))
             .isEqualTo("hello")
 
@@ -60,7 +60,7 @@ class CountryDataDownloaderTest {
         )
 
         assertThatThrownBy {
-            CountryDataDownloader(properties, RestTemplateBuilder()).downloadData()
+            CountryDataLoader(properties, RestTemplateBuilder()).downloadData()
         }
             .isInstanceOf(IllegalStateException::class.java)
             .hasMessageContaining("Invalid body from http://localhost:")
@@ -79,7 +79,7 @@ class CountryDataDownloaderTest {
         )
 
         assertThatThrownBy {
-            CountryDataDownloader(properties, RestTemplateBuilder()).downloadData()
+            CountryDataLoader(properties, RestTemplateBuilder()).downloadData()
         }
             .isInstanceOf(IllegalStateException::class.java)
             .hasMessageContaining("Unable to load data from http://localhost:")
