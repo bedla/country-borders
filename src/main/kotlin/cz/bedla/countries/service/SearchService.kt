@@ -2,11 +2,11 @@ package cz.bedla.countries.service
 
 import cz.bedla.countries.roads.CountriesDatabase
 import cz.bedla.countries.roads.SearchAlgorithm
+import cz.bedla.countries.utils.measureTimeMillis
 import org.apache.commons.lang3.Validate.validState
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.stereotype.Service
-import org.springframework.util.StopWatch
 
 @Service
 class SearchService(
@@ -23,14 +23,10 @@ class SearchService(
             return emptyList()
         }
 
-        val stopWatch = StopWatch().also { it.start() }
-        val searchAlgorithm = algorithms[algorithmId.asKey()]!!
-        return searchAlgorithm.findRoute(fromCountry, toCountry, database.graph)
-            .also {
-                stopWatch.stop()
-                logger.info("Found route from $fromCountry to $toCountry using algorithm $algorithmId with " +
-                        "result $it and time ${stopWatch.totalTimeMillis}ms")
-            }
+        return measureTimeMillis({ millis, result -> logger.info("Found route from $fromCountry to $toCountry with result $result using algorithm $algorithmId in ${millis}ms") }) {
+            val searchAlgorithm = algorithms[algorithmId.asKey()]!!
+            searchAlgorithm.findRoute(fromCountry, toCountry, database.graph)
+        }
     }
 
     override fun afterPropertiesSet() {

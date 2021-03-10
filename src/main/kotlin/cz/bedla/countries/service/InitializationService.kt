@@ -3,10 +3,10 @@ package cz.bedla.countries.service
 import cz.bedla.countries.loader.CountryDataLoader
 import cz.bedla.countries.loader.CountryDataParser
 import cz.bedla.countries.roads.CountriesDatabase
+import cz.bedla.countries.utils.measureTimeMillis
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.stereotype.Service
-import org.springframework.util.StopWatch
 
 @Service
 class InitializationService(
@@ -16,13 +16,12 @@ class InitializationService(
 ) : InitializingBean {
     override fun afterPropertiesSet() {
         logger.info("Initializing countries database")
-        val stopWatch = StopWatch().also { it.start() }
 
-        val resource = loader.downloadData()
-        val data = parser.parseData(resource)
-        database.load(data)
-        stopWatch.stop()
-        logger.info("Countries loaded in ${stopWatch.totalTimeMillis}ms")
+        measureTimeMillis({ millis, _ -> logger.info("Countries loaded in ${millis}ms") }) {
+            val resource = loader.downloadData()
+            val data = parser.parseData(resource)
+            database.load(data)
+        }
     }
 
     companion object {
