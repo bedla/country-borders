@@ -1,0 +1,19 @@
+GET http://localhost:8080/routing/CZE/ITA
+Accept: application/json
+
+###
+
+GET http://localhost:8080/routing/CZE/ITA/
+Accept: application/json
+
+###
+
+GET http://localhost:8080/routing/CZE/USA
+Accept: application/json
+
+###
+
+GET http://localhost:8080/routing/foo/USA
+Accept: application/json
+
+###

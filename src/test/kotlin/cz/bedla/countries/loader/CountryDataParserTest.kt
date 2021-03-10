@@ -12,10 +12,11 @@ import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.core.io.UrlResource
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import java.util.stream.Stream
 
 class CountryDataParserTest {
-    private var parser = CountryDataParser()
+    private var parser = CountryDataParser(Jackson2ObjectMapperBuilder.json())
 
     @Test
     fun empty() {
@@ -51,7 +52,7 @@ class CountryDataParserTest {
         )
         assertThat(list)
             .hasSize(1)
-            .containsExactly(JsonCountry("DE", emptyList<String>()))
+            .containsExactly(JsonCountry("DE", emptyList()))
     }
 
     @Test

@@ -17,14 +17,16 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import java.net.URI
 
 class CountryDataDownloaderTest {
-
     private lateinit var properties: ApplicationProperties
 
     @BeforeEach
     fun setUp() {
         WireMock.resetAllRequests()
 
-        properties = ApplicationProperties(URI("http://localhost:${wireMockServer.port()}/hello.json"))
+        properties = ApplicationProperties(
+            URI("http://localhost:${wireMockServer.port()}/hello.json"),
+            "foo"
+        )
     }
 
     @Test
