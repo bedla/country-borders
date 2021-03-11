@@ -1,5 +1,7 @@
 package cz.bedla.countries.loader
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.LoggerFactory
@@ -25,3 +27,11 @@ class CountryDataParser(
         private val logger = LoggerFactory.getLogger(CountryDataParser::class.java)!!
     }
 }
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class JsonCountry(
+    @JsonProperty("cca3")
+    var id: String,
+    @JsonProperty("borders")
+    var borders: List<String>
+)

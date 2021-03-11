@@ -4,9 +4,9 @@ import cz.bedla.countries.loader.JsonCountry
 import org.jgrapht.Graph
 import org.jgrapht.graph.DefaultEdge
 import org.jgrapht.graph.builder.GraphTypeBuilder
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
+@Repository
 class CountriesDatabase {
     val graph: Graph<String, DefaultEdge> = GraphTypeBuilder.undirected<String, DefaultEdge>()
         .allowingMultipleEdges(false)
