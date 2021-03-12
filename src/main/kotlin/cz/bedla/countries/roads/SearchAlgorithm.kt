@@ -9,5 +9,5 @@ interface SearchAlgorithm {
      */
     fun getIdentifier(): String
 
-    fun findRoute(fromId: String, toId: String, graph: Graph<String, DefaultEdge>): List<String>
+    fun findRoute(fromId: String, toId: String, graph: Graph<String, MyEdge>): List<String>
 }

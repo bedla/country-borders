@@ -4,6 +4,8 @@ import io.restassured.RestAssured
 import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.test.context.TestPropertySource
@@ -25,7 +27,7 @@ class CountryBordersApplicationTests {
     }
 
     @Test
-    fun fromCzechiaToItaly() {
+    fun routeWithDefaultAlgorithm() {
         RestAssured.get("/routing/{from}/{to}", "CZE", "ITA")
             .then()
             .statusCode(200)
@@ -33,8 +35,28 @@ class CountryBordersApplicationTests {
             .body("route", contains("CZE", "AUT", "ITA"))
     }
 
-    @Test
-    fun fromCzechiaToNorway() {
+    @ParameterizedTest
+    @ValueSource(strings = ["my-custom", "jgrapht-dijkstra"])
+    fun fromCzechiaToCanada(algorithm: String) {
+        RestAssured.get("/routing/{from}/{to}?$algorithm", "CZE", "CAN")
+            .then()
+            .statusCode(400)
+            .body(emptyString())
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["my-custom", "jgrapht-dijkstra"])
+    fun fromCzechiaToItaly(algorithm: String) {
+        RestAssured.get("/routing/{from}/{to}?$algorithm", "CZE", "ITA")
+            .then()
+            .statusCode(200)
+            .body("route", hasSize<Int>(3))
+            .body("route", contains("CZE", "AUT", "ITA"))
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["my-custom", "jgrapht-dijkstra"])
+    fun fromCzechiaToNorway(algorithm: String) {
         RestAssured.get("/routing/{from}/{to}", "CZE", "NOR")
             .then()
             .statusCode(200)
@@ -42,16 +64,18 @@ class CountryBordersApplicationTests {
             .body("route", contains("CZE", "POL", "RUS", "NOR"))
     }
 
-    @Test
-    fun fromCzechiaToAustralia() {
+    @ParameterizedTest
+    @ValueSource(strings = ["my-custom", "jgrapht-dijkstra"])
+    fun fromCzechiaToAustralia(algorithm: String) {
         RestAssured.get("/routing/{from}/{to}", "CZE", "AUS")
             .then()
             .statusCode(400)
             .body(emptyString())
     }
 
-    @Test
-    fun fromUruguayToCanada() {
+    @ParameterizedTest
+    @ValueSource(strings = ["my-custom", "jgrapht-dijkstra"])
+    fun fromUruguayToCanada(algorithm: String) {
         RestAssured.get("/routing/{from}/{to}", "URY", "CAN")
             .then()
             .statusCode(200)
@@ -59,8 +83,9 @@ class CountryBordersApplicationTests {
             .body("route", contains("URY", "BRA", "COL", "PAN", "CRI", "NIC", "HND", "GTM", "MEX", "USA", "CAN"))
     }
 
-    @Test
-    fun fromPortugalToJar() {
+    @ParameterizedTest
+    @ValueSource(strings = ["my-custom", "jgrapht-dijkstra"])
+    fun fromPortugalToJar(algorithm: String) {
         RestAssured.get("/routing/{from}/{to}", "PRT", "ZAF")
             .then()
             .statusCode(200)
@@ -68,8 +93,9 @@ class CountryBordersApplicationTests {
             .body("route", contains("PRT", "ESP", "MAR", "DZA", "LBY", "SDN", "SSD", "COD", "ZMB", "ZWE", "ZAF"))
     }
 
-    @Test
-    fun fromMalaysiaToPortugal() {
+    @ParameterizedTest
+    @ValueSource(strings = ["my-custom", "jgrapht-dijkstra"])
+    fun fromMalaysiaToPortugal(algorithm: String) {
         RestAssured.get("/routing/{from}/{to}", "MYS", "PRT")
             .then()
             .statusCode(200)
@@ -108,14 +134,6 @@ class CountryBordersApplicationTests {
             .body("constraintErrors", hasSize<Int>(1))
             .body("constraintErrors[0].path", equalTo("findRoute.algorithm"))
             .body("constraintErrors[0].value", equalTo("invalid-algo"))
-    }
-
-    @Test
-    fun customAlgorithm() {
-        RestAssured.get("/routing/{from}/{to}?algorithm=my-custom", "AUS", "CZE")
-            .then()
-            .statusCode(500)
-            .body("message", equalTo("I am not implemented"))
     }
 
     @Test

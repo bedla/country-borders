@@ -1,0 +1,68 @@
+[
+  {
+    "__comment1__": "Please keep this list ordered, to simulate ordered/unordered bug in my-custom-search-algorithm",
+    "__comment2__": "It has same order as countries.json had. Field 'row' shows row number of 'cca3' field.",
+    "cca3": "AUT",
+    "row": 2297,
+    "borders": [
+      "CZE",
+      "DEU",
+      "ITA",
+      "SVK"
+    ]
+  },
+  {
+    "cca3": "CZE",
+    "row": 9266,
+    "borders": [
+      "AUT",
+      "DEU",
+      "POL",
+      "SVK"
+    ]
+  },
+  {
+    "cca3": "DEU",
+    "row": 9423,
+    "borders": [
+      "AUT",
+      "CZE",
+      "FRA",
+      "POL"
+    ]
+  },
+  {
+    "cca3": "FRA",
+    "row": 11941,
+    "borders": [
+      "DEU",
+      "ITA"
+    ]
+  },
+  {
+    "cca3": "ITA",
+    "row": 17431,
+    "borders": [
+      "AUT",
+      "FRA"
+    ]
+  },
+  {
+    "cca3": "POL",
+    "row": 28041,
+    "borders": [
+      "CZE",
+      "DEU",
+      "SVK"
+    ]
+  },
+  {
+    "cca3": "SVK",
+    "row": 32338,
+    "borders": [
+      "AUT",
+      "CZE",
+      "POL"
+    ]
+  }
+]
